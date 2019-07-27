@@ -11,13 +11,17 @@ import java.io.OutputStreamWriter
 
 object LoggerK {
 
-    private val fileHolder = File(getMainFolder().plus("/logs/log_").plus(getCurrentDateTimeStamp()).plus(".log"))
+    private lateinit var fileHolder : File
     @Volatile private var textHolder = StringBuilder()
 
     fun log(s: String) {
         synchronized(this) {
             textHolder.append(s + "\n")
         }
+    }
+
+    fun initialize(mainFolder : String) {
+        fileHolder = File("$mainFolder/logs/log_${getCurrentDateTimeStamp()}.log")
     }
 
     fun flush() {

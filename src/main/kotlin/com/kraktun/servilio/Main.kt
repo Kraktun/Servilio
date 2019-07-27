@@ -1,11 +1,11 @@
 package com.kraktun.servilio
 
+import com.kraktun.servilio.explorer.getSimpleFiles
+import com.kraktun.servilio.explorer.toString
 import com.kraktun.servilio.utils.*
 import java.io.File
 
 private const val TAG = "MAIN"
-
-class Main
 
 fun main(args : Array<String>) {
     val mainThread = Thread.currentThread()
@@ -25,7 +25,13 @@ fun main(args : Array<String>) {
         println("Invalid folder")
         System.exit(1)
     }
+    println("Passed dir is $currentDir")
     onStart(currentDir)
+    val start = System.nanoTime()
+    val fileSet = getSimpleFiles(currentDir)
+    println(fileSet.toString(true))
+    val end = System.nanoTime()
+    printlnK(TAG, "TIME: ${end-start}")
 }
 
 /**
@@ -39,6 +45,7 @@ fun onStart(folder : String) {
         printlnK(TAG, "Creating logs folder")
         logs.mkdir()
     }
+    LoggerK.initialize(folder)
 }
 
 /**
