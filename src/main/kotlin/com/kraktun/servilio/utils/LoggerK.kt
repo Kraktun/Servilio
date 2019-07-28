@@ -8,7 +8,8 @@ import java.io.*
 
 object LoggerK {
 
-    private lateinit var fileHolder : File
+    private lateinit var fileHolder: File
+    private lateinit var outPath: String
     @Volatile private var textHolder = StringBuilder()
 
     fun log(s: String) {
@@ -17,8 +18,9 @@ object LoggerK {
         }
     }
 
-    fun initialize(mainFolder : String) {
+    fun initialize(mainFolder: String) {
         fileHolder = File("$mainFolder$logFolder/log_${getCurrentDateTimeStamp()}.log")
+        outPath = "$mainFolder$outFolder"
     }
 
     fun flush() {
@@ -37,9 +39,13 @@ object LoggerK {
         }
     }
 
-    fun writeSet(set : Set<String>) {
+    fun getOutputFile(basicName: String): File {
+        return File("$outPath/$basicName".plus("_${getCurrentDateTimeStamp()}.txt"))
+    }
+
+    fun writeSet(file: File, set: Set<String>) {
         synchronized(this) {
-            FileOutputStream(fileHolder, true).bufferedWriter().use { out ->
+            FileOutputStream(file, true).bufferedWriter().use { out ->
                 set.forEach { out.writeLn(it) }
                 out.close()
             }

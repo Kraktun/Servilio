@@ -78,11 +78,14 @@ fun getCurrentDateTimeStamp(): String {
         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"))
 }
 
-fun time(func : () -> Any) {
+/**
+ * Time passed function to check execution time
+ */
+fun time(func: () -> Any) {
     val start = System.nanoTime()
     func()
     val end = System.nanoTime()
-    printlnK(TAG, "FUNC TOOK : ${end-start} nanoseconds")
+    printlnK(TAG, "FUNC TOOK : ${end - start} nanoseconds")
 }
 
 /**

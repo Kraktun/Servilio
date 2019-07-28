@@ -1,15 +1,15 @@
 package com.kraktun.servilio
 
-import com.kraktun.servilio.explorer.getSimpleFiles
+import com.kraktun.servilio.executors.FileLister
+import com.kraktun.servilio.menu.MainMenu
 import com.kraktun.servilio.utils.*
 import java.io.File
-import kotlin.system.exitProcess
 
 private const val TAG = "MAIN"
 
 class Main
 
-fun main(args : Array<String>) {
+fun main(args: Array<String>) {
     val mainThread = Thread.currentThread()
     Runtime.getRuntime().addShutdownHook(Thread {
         onShutdown()
@@ -22,36 +22,28 @@ fun main(args : Array<String>) {
     val currentDir = getMainFolder()
     println("Current dir is $currentDir")
     onStart(currentDir)
-    val targetDir = if (args.isNotEmpty()) args[0] else {
-        println("Insert target folder and press enter.\n")
-        readLine() ?: ""
-    }
-    if (targetDir.isEmpty()) {
-        println("Invalid folder")
-        exitProcess(1)
-    }
-    LoggerK.flush()
-    time {
-        println("COLLECTING")
-        val fileSet = getSimpleFiles(targetDir)
-        println("WRITING")
-        LoggerK.writeSet(fileSet)
-    }
+    MainMenu.register(FileLister.menu)
+    MainMenu.show()
 }
 
 /**
  * What to execute on start
  */
-fun onStart(folder : String) {
-    printlnK(TAG, "Starting system")
-    printlnK(TAG, "Current version is: ${com.kraktun.servilio.Main::class.java.getPackage().implementationVersion}")
-    printlnK(TAG, "Checking folders")
+fun onStart(folder: String) {
+    logK(TAG, "Starting system")
+    logK(TAG, "Current version is: ${com.kraktun.servilio.Main::class.java.getPackage().implementationVersion}")
+    logK(TAG, "Checking folders")
     val logs = File("$folder$logFolder")
-    if (!logs.exists()) {
-        printlnK(TAG, "Creating logs folder")
+    if (!logs.exists() || !logs.isDirectory) {
+        logK(TAG, "Creating logs folder")
         logs.mkdir()
     }
-    printlnK(TAG, "Folders checked")
+    val outs = File("$folder$outFolder")
+    if (!outs.exists() || !outs.isDirectory) {
+        logK(TAG, "Creating output folder")
+        outs.mkdir()
+    }
+    logK(TAG, "Folders checked")
     LoggerK.initialize(folder)
 }
 
