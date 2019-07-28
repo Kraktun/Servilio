@@ -6,6 +6,8 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
+const val TAG = "FUNCS"
+
 /**
  * Execute function for a collection, defaults to passed value if list is empty or null, or an exception is thrown.
  */
@@ -74,6 +76,13 @@ fun File.executeScript(vararg arguments: String): String {
 fun getCurrentDateTimeStamp(): String {
     return LocalDateTime.now()
         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"))
+}
+
+fun time(func : () -> Any) {
+    val start = System.nanoTime()
+    func()
+    val end = System.nanoTime()
+    printlnK(TAG, "FUNC TOOK : ${end-start} nanoseconds")
 }
 
 /**

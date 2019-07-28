@@ -1,7 +1,6 @@
 package com.kraktun.servilio
 
 import com.kraktun.servilio.explorer.getSimpleFiles
-import com.kraktun.servilio.explorer.toListString
 import com.kraktun.servilio.utils.*
 import java.io.File
 import kotlin.system.exitProcess
@@ -31,11 +30,13 @@ fun main(args : Array<String>) {
         println("Invalid folder")
         exitProcess(1)
     }
-    val start = System.nanoTime()
-    val fileSet = getSimpleFiles(targetDir)
-    println(fileSet.toListString())
-    val end = System.nanoTime()
-    printlnK(TAG, "TIME: ${end-start}")
+    LoggerK.flush()
+    time {
+        println("COLLECTING")
+        val fileSet = getSimpleFiles(targetDir)
+        println("WRITING")
+        LoggerK.writeSet(fileSet)
+    }
 }
 
 /**

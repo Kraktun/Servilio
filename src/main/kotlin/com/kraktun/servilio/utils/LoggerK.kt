@@ -4,10 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.OutputStreamWriter
+import java.io.*
 
 object LoggerK {
 
@@ -29,20 +26,28 @@ object LoggerK {
             withContext(Dispatchers.IO) {
                 synchronized(this) {
                     if (textHolder.isNotEmpty()) {
-                        val outStream = FileOutputStream(fileHolder, true)
-                        val buffW = OutputStreamWriter(outStream, "UTF-8")
-                        try {
-                            buffW.write(textHolder.toString())
+                        FileOutputStream(fileHolder, true).bufferedWriter().use {
+                            it.write(textHolder.toString())
+                            it.close()
                             textHolder = StringBuilder()
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        } finally {
-                            buffW.close()
-                            outStream.close()
                         }
                     }
                 }
             }
         }
+    }
+
+    fun writeSet(set : Set<String>) {
+        synchronized(this) {
+            FileOutputStream(fileHolder, true).bufferedWriter().use { out ->
+                set.forEach { out.writeLn(it) }
+                out.close()
+            }
+        }
+    }
+
+    fun BufferedWriter.writeLn(line: String) {
+        this.write(line)
+        this.newLine()
     }
 }
