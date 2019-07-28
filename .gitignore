@@ -33,3 +33,4 @@ out/*
 build/*
 exes/test/*
 exes/logs/*
+exes/out/*

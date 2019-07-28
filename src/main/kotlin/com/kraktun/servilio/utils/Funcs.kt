@@ -1,10 +1,14 @@
 package com.kraktun.servilio.utils
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.net.URLDecoder
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
+import kotlin.system.measureTimeMillis
 
 const val TAG = "FUNCS"
 
@@ -82,10 +86,14 @@ fun getCurrentDateTimeStamp(): String {
  * Time passed function to check execution time
  */
 fun time(func: () -> Any) {
-    val start = System.nanoTime()
-    func()
-    val end = System.nanoTime()
-    printlnK(TAG, "FUNC TOOK : ${end - start} nanoseconds")
+    val time = measureTimeMillis { func() }
+    printlnK(TAG, "FUNC TOOK : $time millis")
+}
+
+fun File.getMD5() : String {
+    Thread.sleep(2000)
+    println("Executing ${this.name}")
+    return "AAA"
 }
 
 /**

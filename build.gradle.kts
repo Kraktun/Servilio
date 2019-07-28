@@ -1,4 +1,5 @@
 import org.gradle.jvm.tasks.Jar
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
@@ -8,7 +9,7 @@ plugins {
 }
 
 group = "com.kraktun"
-version = "0.0.2"
+version = "0.0.3"
 
 val coroutinesVersion = "1.3.0-M2"
 val kotlinVersion = "1.3.41"
@@ -54,4 +55,8 @@ tasks {
     "build" {
         dependsOn(fatJar)
     }
+}
+
+tasks.withType<KotlinCompile>().all {
+    kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
 }

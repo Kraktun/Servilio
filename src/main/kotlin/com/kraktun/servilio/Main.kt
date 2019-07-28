@@ -1,6 +1,7 @@
 package com.kraktun.servilio
 
 import com.kraktun.servilio.executors.FileLister
+import com.kraktun.servilio.executors.FileMD5Lister
 import com.kraktun.servilio.menu.MainMenu
 import com.kraktun.servilio.utils.*
 import java.io.File
@@ -23,6 +24,7 @@ fun main(args: Array<String>) {
     println("Current dir is $currentDir")
     onStart(currentDir)
     MainMenu.register(FileLister.menu)
+    MainMenu.register(FileMD5Lister.menu)
     MainMenu.show()
 }
 

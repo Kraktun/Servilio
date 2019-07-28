@@ -12,6 +12,7 @@ object MainMenu {
 
     fun show() {
         synchronized(this) {
+            println()
             println("OPTIONS")
             println()
             holder.forEach {
