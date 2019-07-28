@@ -1,3 +1,5 @@
+import org.gradle.jvm.tasks.Jar
+
 plugins {
     java
     application
@@ -26,13 +28,30 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testCompile("junit:junit:4.12")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 }
 
 ktlint {
     verbose.set(true)
     outputToConsole.set(true)
     coloredOutput.set(true)
+}
+
+val fatJar = task("fatJar", type = Jar::class) {
+    baseName = project.name
+    manifest {
+        attributes["Implementation-Title"] = "Servilio"
+        attributes["Implementation-Version"] = version
+        attributes["Main-Class"] = "com.kraktun.servilio.MainKt"
+    }
+    from(configurations.runtime.map { if (it.isDirectory) it else zipTree(it) })
+    with(tasks["jar"] as CopySpec)
+}
+
+tasks {
+    "build" {
+        dependsOn(fatJar)
+    }
 }

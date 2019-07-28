@@ -1,11 +1,14 @@
 package com.kraktun.servilio
 
 import com.kraktun.servilio.explorer.getSimpleFiles
-import com.kraktun.servilio.explorer.toString
+import com.kraktun.servilio.explorer.toListString
 import com.kraktun.servilio.utils.*
 import java.io.File
+import kotlin.system.exitProcess
 
 private const val TAG = "MAIN"
+
+class Main
 
 fun main(args : Array<String>) {
     val mainThread = Thread.currentThread()
@@ -17,19 +20,20 @@ fun main(args : Array<String>) {
             e.printStackTrace()
         }
     })
-    val currentDir = if (args.isNotEmpty()) args[0] else {
-        println("Could not detect current folder, insert current folder and press enter.\n")
+    val currentDir = getMainFolder()
+    println("Current dir is $currentDir")
+    onStart(currentDir)
+    val targetDir = if (args.isNotEmpty()) args[0] else {
+        println("Insert target folder and press enter.\n")
         readLine() ?: ""
     }
-    if (currentDir.isEmpty()) {
+    if (targetDir.isEmpty()) {
         println("Invalid folder")
-        System.exit(1)
+        exitProcess(1)
     }
-    println("Passed dir is $currentDir")
-    onStart(currentDir)
     val start = System.nanoTime()
-    val fileSet = getSimpleFiles(currentDir)
-    println(fileSet.toString(true))
+    val fileSet = getSimpleFiles(targetDir)
+    println(fileSet.toListString())
     val end = System.nanoTime()
     printlnK(TAG, "TIME: ${end-start}")
 }
@@ -39,12 +43,14 @@ fun main(args : Array<String>) {
  */
 fun onStart(folder : String) {
     printlnK(TAG, "Starting system")
+    printlnK(TAG, "Current version is: ${com.kraktun.servilio.Main::class.java.getPackage().implementationVersion}")
     printlnK(TAG, "Checking folders")
-    val logs = File("$folder/logs")
+    val logs = File("$folder$logFolder")
     if (!logs.exists()) {
         printlnK(TAG, "Creating logs folder")
         logs.mkdir()
     }
+    printlnK(TAG, "Folders checked")
     LoggerK.initialize(folder)
 }
 

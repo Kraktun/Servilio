@@ -21,7 +21,7 @@ object LoggerK {
     }
 
     fun initialize(mainFolder : String) {
-        fileHolder = File("$mainFolder/logs/log_${getCurrentDateTimeStamp()}.log")
+        fileHolder = File("$mainFolder$logFolder/log_${getCurrentDateTimeStamp()}.log")
     }
 
     fun flush() {

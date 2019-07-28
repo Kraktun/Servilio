@@ -26,7 +26,7 @@ fun getSimpleDirectories(path : String) : Set<String>{
     }.toSet()
 }
 
-fun Set<String>.toString(advanced : Boolean) : String {
+fun Set<String>.toListString() : String {
     return this.stream().collect(Collectors.joining("\n"))
 }
 

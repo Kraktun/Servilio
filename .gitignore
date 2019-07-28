@@ -30,9 +30,6 @@ hs_err_pid*
 target/*
 .gradle/*
 out/*
-build/classes/*
-build/kotlin/*
-build/tmp/*
-build/resources/*
-build/libs/downloads/*
-build/libs/logs/*
+build/*
+exes/test/*
+exes/logs/*
