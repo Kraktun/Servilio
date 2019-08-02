@@ -20,6 +20,7 @@ fun main(args: Array<String>) {
             e.printStackTrace()
         }
     })
+    CliOptions.main(args)
     val currentDir = getMainFolder()
     println("Current dir is $currentDir")
     onStart(currentDir)

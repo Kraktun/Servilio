@@ -52,7 +52,7 @@ object LoggerK {
         }
     }
 
-    fun BufferedWriter.writeLn(line: String) {
+    private fun BufferedWriter.writeLn(line: String) {
         this.write(line)
         this.newLine()
     }

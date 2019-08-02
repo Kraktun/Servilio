@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.kraktun"
-version = "0.0.3"
+version = "0.0.4"
 
 val coroutinesVersion = "1.3.0-M2"
 val kotlinVersion = "1.3.41"
@@ -32,6 +32,7 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testCompile("junit:junit:4.12")
     compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    compile("com.github.ajalt:clikt:2.1.0")
 }
 
 ktlint {
@@ -59,4 +60,5 @@ tasks {
 
 tasks.withType<KotlinCompile>().all {
     kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+    kotlinOptions.jvmTarget = "1.8"
 }

@@ -1,8 +1,5 @@
 package com.kraktun.servilio.utils
 
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.net.URLDecoder
 import java.time.LocalDateTime
@@ -88,12 +85,6 @@ fun getCurrentDateTimeStamp(): String {
 fun time(func: () -> Any) {
     val time = measureTimeMillis { func() }
     printlnK(TAG, "FUNC TOOK : $time millis")
-}
-
-fun File.getMD5() : String {
-    Thread.sleep(2000)
-    println("Executing ${this.name}")
-    return "AAA"
 }
 
 /**
