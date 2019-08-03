@@ -2,6 +2,7 @@ package com.kraktun.servilio.explorer
 
 import com.kraktun.servilio.utils.printlnK
 import java.io.File
+import java.security.MessageDigest
 
 private const val TAG = "FILEEXPLORER"
 
@@ -21,7 +22,7 @@ fun listMD5Files(path: String): Map<String, String> {
     }.filter {
         !it.isDirectory
     }.toList()
-    val newMap = executeToMap(objects = list, functionK = { it.absolutePath }, functionV = { getMD5(it) })
+    val newMap = executeToMap<File, String, String, MessageDigest>(objects = list, functionK = { it.absolutePath }, functionV = { file, md -> getMD5(file, md) }, functionPre = {MessageDigest.getInstance("MD5")})
     return newMap.toSortedMap()
 }
 
