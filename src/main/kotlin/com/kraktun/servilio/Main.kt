@@ -34,7 +34,8 @@ fun main(args: Array<String>) {
  */
 fun onStart(folder: String) {
     logK(TAG, "Starting system")
-    logK(TAG, "Current version is: ${com.kraktun.servilio.Main::class.java.getPackage().implementationVersion}")
+    logK(TAG, "Script version is: ${com.kraktun.servilio.Main::class.java.getPackage().implementationVersion}")
+    println("Script version is: ${com.kraktun.servilio.Main::class.java.getPackage().implementationVersion}")
     logK(TAG, "Checking folders")
     val logs = File("$folder$logFolder")
     if (!logs.exists() || !logs.isDirectory) {

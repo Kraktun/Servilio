@@ -22,7 +22,7 @@ fun listMD5Files(path: String): Map<String, String> {
     }.filter {
         !it.isDirectory
     }.toList()
-    val newMap = executeToMap<File, String, String, MessageDigest>(objects = list, functionK = { it.absolutePath }, functionV = { file, md -> getMD5(file, md) }, functionPre = {MessageDigest.getInstance("MD5")})
+    val newMap = executeToMap<File, String, String, MessageDigest>(objects = list, functionK = { it.absolutePath }, functionV = { file, md -> getMD5Unorthodox(file, md) }, functionPre = {MessageDigest.getInstance("MD5")})
     return newMap.toSortedMap()
 }
 

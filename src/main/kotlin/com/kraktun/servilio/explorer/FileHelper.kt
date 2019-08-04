@@ -27,6 +27,7 @@ fun <T, P, K, Z> executeToMap(objects: List<T>, functionK: (T) -> P, functionV: 
             waitingFor.add(GlobalScope.async(CoroutineName("Core$t")) {
                 val z = functionPre()
                 for (f in listChannel) {
+                    //println("Executing coroutine $t")
                     newMap[functionK(f)] = functionV(f, z)
                 }
             })
