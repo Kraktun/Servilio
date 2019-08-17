@@ -6,6 +6,9 @@ import com.kraktun.servilio.menu.Menu
 import com.kraktun.servilio.utils.LoggerK
 import com.kraktun.servilio.utils.time
 
+/**
+ * List all files in a folder
+ */
 class FileLister {
 
     companion object {

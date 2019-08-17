@@ -1,5 +1,8 @@
 package com.kraktun.servilio.menu
 
+/**
+ * Menu that display available options
+ */
 object MainMenu {
 
     private val holder = mutableListOf<Menu>()

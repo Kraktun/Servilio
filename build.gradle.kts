@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.kraktun"
-version = "0.0.7"
+version = "0.0.8"
 
 val coroutinesVersion = "1.3.0-M2"
 val kotlinVersion = "1.3.41"
@@ -33,7 +33,6 @@ dependencies {
     testCompile("junit:junit:4.12")
     compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     compile("com.github.ajalt:clikt:2.1.0")
-    compile("com.google.guava:guava:28.0-jre")
 }
 
 ktlint {
