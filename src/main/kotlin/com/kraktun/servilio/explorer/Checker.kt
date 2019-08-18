@@ -8,10 +8,14 @@ import java.io.File
 fun getSimpleFolder(): String {
     println("Insert target folder and press enter.\n")
     val targetDir = readLine() ?: ""
-    return if (targetDir.isEmpty() || !File(targetDir).exists() || !File(targetDir).isDirectory) {
+    return if (validateFolder(targetDir)) {
+        targetDir
+    } else {
         println("Invalid folder")
         getSimpleFolder()
-    } else {
-        targetDir
     }
+}
+
+fun validateFolder(path: String) : Boolean {
+    return path.isNotEmpty() && File(path).exists() && File(path).isDirectory
 }

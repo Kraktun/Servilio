@@ -20,13 +20,17 @@ fun main(args: Array<String>) {
             e.printStackTrace()
         }
     })
-    CliOptions.main(args)
     val currentDir = getMainFolder()
     println("Current dir is $currentDir")
     onStart(currentDir)
     MainMenu.register(FileLister.menu)
     MainMenu.register(FileMD5Lister.menu)
-    MainMenu.show()
+    CliOptions.main(args)
+    if (CliOptions.menu > 0) {
+        MainMenu.linkTo(CliOptions.menu)
+    } else {
+        MainMenu.show()
+    }
 }
 
 /**

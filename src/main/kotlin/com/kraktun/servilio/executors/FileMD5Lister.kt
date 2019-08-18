@@ -3,6 +3,7 @@ package com.kraktun.servilio.executors
 import com.kraktun.servilio.explorer.getSimpleFolder
 import com.kraktun.servilio.explorer.listMD5Files
 import com.kraktun.servilio.menu.Menu
+import com.kraktun.servilio.utils.CliOptions
 import com.kraktun.servilio.utils.LoggerK
 import com.kraktun.servilio.utils.time
 
@@ -13,7 +14,7 @@ class FileMD5Lister {
 
     companion object {
         private val exe = {
-            val targetDir = getSimpleFolder()
+            val targetDir = if (CliOptions.inputFolder != null) CliOptions.inputFolder!! else getSimpleFolder()
             LoggerK.flush()
             time {
                 println("COLLECTING")
