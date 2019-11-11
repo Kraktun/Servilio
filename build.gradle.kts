@@ -4,15 +4,15 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     java
     application
-    kotlin("jvm") version "1.3.41"
+    kotlin("jvm") version "1.3.50"
     id("org.jlleitschuh.gradle.ktlint") version "8.1.0"
 }
 
 group = "com.kraktun"
 version = "0.0.9"
 
-val coroutinesVersion = "1.3.0-RC2"
-val kotlinVersion = "1.3.41"
+val coroutinesVersion = "1.3.2"
+val kotlinVersion = "1.3.50"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -26,6 +26,7 @@ application {
 repositories {
     mavenCentral()
     jcenter()
+    maven(url = "https://jitpack.io")
 }
 
 dependencies {
@@ -33,6 +34,7 @@ dependencies {
     testCompile("junit:junit:4.12")
     compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     compile("com.github.ajalt:clikt:2.1.0")
+    compile("com.github.Kraktun:KUtils:master-SNAPSHOT")
 }
 
 ktlint {
@@ -62,3 +64,4 @@ tasks.withType<KotlinCompile>().all {
     kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
     kotlinOptions.jvmTarget = "1.8"
 }
+
