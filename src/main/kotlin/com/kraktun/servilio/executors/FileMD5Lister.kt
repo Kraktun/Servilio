@@ -1,10 +1,11 @@
 package com.kraktun.servilio.executors
 
+import com.kraktun.kutils.log.KLogger
 import com.kraktun.servilio.explorer.getSimpleFolder
 import com.kraktun.servilio.explorer.listMD5Files
 import com.kraktun.servilio.menu.Menu
 import com.kraktun.servilio.utils.CliOptions
-import com.kraktun.servilio.utils.LoggerK
+import com.kraktun.servilio.utils.OutWriter
 import com.kraktun.servilio.utils.time
 
 /**
@@ -15,12 +16,12 @@ class FileMD5Lister {
     companion object {
         private val exe = {
             val targetDir = if (CliOptions.inputFolder != null) CliOptions.inputFolder!! else getSimpleFolder()
-            LoggerK.flush()
+            KLogger.flush()
             time {
                 println("COLLECTING")
                 val fileSet = listMD5Files(targetDir).map { "${it.value}  ${it.key}" }.toSet()
                 println("WRITING")
-                LoggerK.writeSet(LoggerK.getOutputFile("List_els"), fileSet)
+                OutWriter.writeSet(OutWriter.getOutputFile("List_els"), fileSet)
             }
         }
 

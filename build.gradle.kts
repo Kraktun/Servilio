@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.kraktun"
-version = "0.0.9"
+version = "0.1.0"
 
 val coroutinesVersion = "1.3.2"
 val kotlinVersion = "1.3.50"
@@ -33,8 +33,8 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testCompile("junit:junit:4.12")
     compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-    compile("com.github.ajalt:clikt:2.1.0")
-    compile("com.github.Kraktun:KUtils:master-SNAPSHOT")
+    compile("com.github.ajalt:clikt:2.3.0")
+    compile("com.github.Kraktun:KUtils:6f05036")
 }
 
 ktlint {

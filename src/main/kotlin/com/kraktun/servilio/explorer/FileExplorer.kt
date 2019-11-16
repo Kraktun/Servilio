@@ -1,7 +1,8 @@
 package com.kraktun.servilio.explorer
 
-import com.kraktun.servilio.optimizers.NumberedOptimizer
-import com.kraktun.servilio.optimizers.Orchestrator
+import com.kraktun.kutils.coroutines.optimizators.NumberedOptimizer
+import com.kraktun.kutils.coroutines.optimizators.Orchestrator
+import com.kraktun.servilio.utils.CliOptions
 import com.kraktun.servilio.utils.printlnK
 import java.io.File
 
@@ -36,9 +37,12 @@ fun listMD5Files(path: String): Map<String, String> {
         it.length() //sorting by length allows to use getMD5Chunked on small files and getMD5Unorthodox on biggers
     }
     // val newMap = executeToMap<File, String, String>(objects = list, functionK = { it.absolutePath }, functionV = { file -> getMD5(file) })
-    val newMap = Orchestrator().run<File, String, String>(elementsCount = list.size,
-        optimizer = NumberedOptimizer(files = list, highThreads = 2, highFunction = {file -> getMD5Unorthodox(file)}, lowFunction = {file -> getMD5Chunked(file, -1)}),
-        functionK = { it.absolutePath })
+    val newMap = Orchestrator().run<File, String, String>(
+        optimizer = NumberedOptimizer(files = list, highThreads = CliOptions.highThreads, highFunction = { file -> getMD5Unorthodox(file)}, lowFunction = { file -> getMD5Chunked(file, -1)}),
+        functionK = { it.absolutePath },
+        channelCapacity = CliOptions.threads*3,
+        threads = CliOptions.threads,
+        enableLog = true)
     return newMap.toSortedMap()
 }
 

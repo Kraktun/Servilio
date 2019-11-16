@@ -7,4 +7,5 @@ set filename=Servilio.jar
 for /f %%s in ('dir /b/a-d/od/t:c Servilio-*.jar') do ( 
 	set filename=%%s
 ) 
-cmd /c start java -jar %filename% -t=4 --option=1 --inputFolder="%~dp0\test"
+java -jar %filename% -t=2 -ht=1 --option=1 --inputFolder="%~dp0\test\g"
+pause
