@@ -17,14 +17,8 @@ private const val TAG = "MAIN"
 class Main
 
 fun main(args: Array<String>) {
-    val mainThread = Thread.currentThread()
     Runtime.getRuntime().addShutdownHook(Thread {
         onShutdown()
-        try {
-            mainThread.join()
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
     })
     val currentDir = getLocalFolder(Main::class.java).parentFile.absolutePath
     println("Current dir is $currentDir")
@@ -68,5 +62,6 @@ fun onStart(folder: String) {
 fun onShutdown() {
     println("Closing system")
     KLogger.close()
+    Thread.sleep(2000)
     println("DONE")
 }
