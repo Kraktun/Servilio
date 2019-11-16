@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
     MainMenu.register(FileLister.menu)
     MainMenu.register(FileMD5Lister.menu)
     CliOptions.main(args)
-    if (CliOptions.menu > 0) {
+    if (CliOptions.menu >= 0) {
         MainMenu.linkTo(CliOptions.menu)
     } else {
         MainMenu.show()
@@ -43,7 +43,7 @@ fun onStart(folder: String) {
         type = LogFolder.PARENT,
         pattern = TimeFormat.YMD,
         logFolder = LOG_OUTPUT_FOLDER)
-    printlnK(TAG, "Log file is: ${KLogger.getOutputFile().absolutePath}")
+    // printlnK(TAG, "Log file is: ${KLogger.getOutputFile().absolutePath}")
     logK(TAG, "Starting system")
     logK(TAG, "Script version is: ${com.kraktun.servilio.Main::class.java.getPackage().implementationVersion}")
     println("Script version is: ${com.kraktun.servilio.Main::class.java.getPackage().implementationVersion}")
