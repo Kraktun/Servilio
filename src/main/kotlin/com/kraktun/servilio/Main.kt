@@ -43,7 +43,7 @@ fun main(args: Array<String>) {
 fun onStart(folder: String) {
     KLogger.initialize(
         c = Main::class.java,
-        type = LogFolder.PARENT,
+        type = LogFolder.DEFAULT,
         pattern = TimeFormat.YMD,
         logFolder = LOG_OUTPUT_FOLDER,
         buildEnv = BuildEnv.INTELLIJ)
