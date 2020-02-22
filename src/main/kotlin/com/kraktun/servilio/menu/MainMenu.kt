@@ -16,11 +16,11 @@ object MainMenu {
         }
     }
 
-    fun size() : Int {
+    fun size(): Int {
         return holder.size
     }
 
-    fun linkTo(index : Int) {
+    fun linkTo(index: Int) {
         printlnK(TAG, "Executing ${holder[index].name}")
         holder[index].interact()
     }

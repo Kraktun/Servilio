@@ -16,6 +16,6 @@ fun getSimpleFolder(): String {
     }
 }
 
-fun validateFolder(path: String) : Boolean {
+fun validateFolder(path: String): Boolean {
     return path.isNotEmpty() && File(path).exists() && File(path).isDirectory
 }

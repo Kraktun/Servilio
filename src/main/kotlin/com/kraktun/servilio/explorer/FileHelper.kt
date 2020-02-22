@@ -25,12 +25,12 @@ fun <T, P, K> executeToMap(objects: List<T>, functionK: (T) -> P, functionV: (T)
         for (t in 1..CliOptions.threads) {
             waitingFor.add(GlobalScope.async(CoroutineName("Core$t")) {
                 for (f in listChannel) {
-                    //println("Executing coroutine $t")
+                    // println("Executing coroutine $t")
                     newMap[functionK(f)] = functionV(f)
                 }
             })
         }
-        waitingFor.map { it.await()}
+        waitingFor.map { it.await() }
         delay(100)
     }
     return newMap

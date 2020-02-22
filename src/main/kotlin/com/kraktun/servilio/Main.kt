@@ -1,5 +1,6 @@
 package com.kraktun.servilio
 
+import com.kraktun.kutils.file.BuildEnv
 import com.kraktun.kutils.file.getLocalFolder
 import com.kraktun.kutils.log.LOG_OUTPUT_FOLDER
 import com.kraktun.kutils.log.LogFolder
@@ -7,6 +8,7 @@ import com.kraktun.kutils.time.TimeFormat
 import com.kraktun.servilio.executors.FileLister
 import com.kraktun.servilio.executors.FileMD5Lister
 import com.kraktun.kutils.log.KLogger
+import com.kraktun.servilio.executors.FolderLister
 import com.kraktun.servilio.menu.MainMenu
 import com.kraktun.servilio.utils.*
 import java.io.File
@@ -25,6 +27,7 @@ fun main(args: Array<String>) {
     onStart(currentDir)
     MainMenu.register(FileLister.menu)
     MainMenu.register(FileMD5Lister.menu)
+    MainMenu.register(FolderLister.menu)
     CliOptions.main(args)
     if (CliOptions.menu >= 0) {
         MainMenu.linkTo(CliOptions.menu)
@@ -42,7 +45,8 @@ fun onStart(folder: String) {
         c = Main::class.java,
         type = LogFolder.PARENT,
         pattern = TimeFormat.YMD,
-        logFolder = LOG_OUTPUT_FOLDER)
+        logFolder = LOG_OUTPUT_FOLDER,
+        buildEnv = BuildEnv.INTELLIJ)
     // printlnK(TAG, "Log file is: ${KLogger.getOutputFile().absolutePath}")
     logK(TAG, "Starting system")
     logK(TAG, "Script version is: ${com.kraktun.servilio.Main::class.java.getPackage().implementationVersion}")

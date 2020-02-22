@@ -14,9 +14,9 @@ import java.nio.file.Files
  */
 fun getMD5Chunked(file: File, chunk: Long = 102400L): String {
     val md = MessageDigest.getInstance("MD5")
-    //println("Using MD5 Chunked. Chunk is $chunk")
+    // println("Using MD5 Chunked. Chunk is $chunk")
     println("Calculating hash of: ${file.name}")
-    //println("Size is: ${file.length()}")
+    // println("Size is: ${file.length()}")
     val inputStream = BufferedInputStream(FileInputStream(file))
     val digestInputStream = DigestInputStream(inputStream, md)
     val buffer = ByteArray(2048)
@@ -40,9 +40,9 @@ fun getMD5Chunked(file: File, chunk: Long = 102400L): String {
  */
 fun getMD5Unorthodox(file: File): String {
     val md = MessageDigest.getInstance("MD5")
-    //println("Using MD5 Unorthodox")
+    // println("Using MD5 Unorthodox")
     println("Calculating hash of: ${file.name}")
-    //println("Size is: ${file.length()}")
+    // println("Size is: ${file.length()}")
     md.update(Files.readAllBytes(file.toPath()))
     val resultB = md.digest()
     return bytesToString(resultB)
@@ -52,10 +52,10 @@ fun getMD5Unorthodox(file: File): String {
  * Converts byteArray to string.
  * @param bytes array of bytes
  */
-fun bytesToString(bytes: ByteArray) : String {
+fun bytesToString(bytes: ByteArray): String {
     var result = ""
-    for (i in 0 until bytes.size) {
-        val hex = Integer.toHexString(0xFF and bytes[i].toInt())
+    for (element in bytes) {
+        val hex = Integer.toHexString(0xFF and element.toInt())
         if (hex.length == 1) {
             result += '0'
         }

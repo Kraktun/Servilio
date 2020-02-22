@@ -21,11 +21,11 @@ object CliOptions : CliktCommand() {
     }
 
     val menu: Int by option("--option", help = "Execute an option from the menu without interaction").int().default(-1).validate {
-        require( it < MainMenu.size()) {"Value must the one shown in the main menu"}
+        require(it < MainMenu.size()) { "Value must the one shown in the main menu" }
     }
 
     val inputFolder: String? by option("-if", "--inputFolder", help = "Input folder").validate {
-        require(validateFolder(it)){"Invalid directory"}
+        require(validateFolder(it)) { "Invalid directory" }
     }
 
     override fun run() {

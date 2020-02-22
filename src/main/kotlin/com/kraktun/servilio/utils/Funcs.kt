@@ -7,7 +7,6 @@ import kotlin.system.measureTimeMillis
 
 const val TAG = "FUNCS"
 
-
 /**
  * Print & log functions
  */
